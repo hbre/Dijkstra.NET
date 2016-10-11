@@ -6,7 +6,7 @@
     using Model;
     using Utility;
 
-    public class Dijkstra<T, TEdgeCustom> where TEdgeCustom: class
+    public class Dijkstra<T, TEdgeCustom>: IDijkstra where TEdgeCustom: class
     {
         private readonly IGraph<T, TEdgeCustom> _graph;
 

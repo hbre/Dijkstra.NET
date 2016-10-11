@@ -3,7 +3,7 @@
     using System;
     using Model;
 
-    public class DijkstraBenchmarkBase
+    public abstract class DijkstraBenchmarkBase
     {
         protected readonly Graph<int, string> _graph = new Graph<int, string>();
 
@@ -32,5 +32,7 @@
             @from = (uint) random.Next(0, Nodes-1);
             to = (uint) random.Next(0, Nodes-1);
         }
+
+        public abstract DijkstraResult GetPath();
     }
 }

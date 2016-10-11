@@ -9,7 +9,7 @@
     {
         static void Main(string[] args)
         {
-            var normal = new  DijkstraBenchmark();
+            var normal = new  DijkstraBenchmarkMatrix();
             normal.Setup();
 
             var stopWatch = Stopwatch.StartNew(); 

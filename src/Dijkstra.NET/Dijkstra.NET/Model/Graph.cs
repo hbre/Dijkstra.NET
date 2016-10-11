@@ -5,7 +5,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Contract;
-    public class Graph<T, TEdgeCustom>: IGraph<T, TEdgeCustom>, ICloneable where TEdgeCustom: class 
+
+    public class Graph<T, TEdgeCustom>: IGraph<T, TEdgeCustom>, ICloneable, IMatrix where TEdgeCustom: class 
     {
         private readonly IDictionary<uint, INode<T, TEdgeCustom>> _nodes = new Dictionary<uint, INode<T, TEdgeCustom>>();
 
@@ -71,6 +72,33 @@
             }
 
             return graph;
+        }
+
+        public Matrix GetMatrix()
+        {
+            var m = new Matrix(_nodes.Count, UInt32.MaxValue);
+            
+            for (uint i = 0; i < _nodes.Count; i++)
+            {
+                var node = _nodes[i];
+
+                for (int j = 0; j < node.Children.Count; j++)
+                {
+                    var e = node.Children[j];
+
+                    if (m[i, e.Node.Key] > e.Cost)
+                    {
+                        m[i, e.Node.Key] = e.Cost;
+                    }
+                }
+            }
+
+            return m;
+        }
+
+        public uint[] GetNodes()
+        {
+            return _nodes.Select(x => x.Value.Distance).ToArray();
         }
     }
 }

@@ -2,13 +2,12 @@
 {
     using Model;
 
-    public class DijkstraBenchmark: DijkstraBenchmarkBase
+    public class DijkstraBenchmarkMatrix : DijkstraBenchmarkBase
     {
         public override DijkstraResult GetPath()
         {
-            var dijkstra = new Dijkstra<int, string>(_graph);
+            var dijkstra = new DijkstraMatrix(_graph);
             return dijkstra.Process(@from, to);
         }
-        
     }
 }
