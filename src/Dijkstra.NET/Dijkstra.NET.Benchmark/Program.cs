@@ -1,27 +1,15 @@
 ﻿namespace Dijkstra.NET.Benchmark
 {
     using System;
-    using System.Diagnostics;
-    using System.Linq;
-    using Model;
+    using BenchmarkDotNet.Configs;
+    using BenchmarkDotNet.Jobs;
+    using BenchmarkDotNet.Running;
 
     class Program
     {
         static void Main()
         {
-            var normal = new  DijkstraBenchmark();
-            normal.Setup();
-
-            var stopWatch = Stopwatch.StartNew(); 
-            DijkstraResult result = normal.GetPath();
-            stopWatch.Stop();
-
-            uint[] path = result.GetPath().ToArray();
-
-            Console.WriteLine($"Dijkstra takes {stopWatch.ElapsedMilliseconds} ms. Length of path is {path.Length}.");
-            Console.WriteLine($"Path: {path.Select(x => x.ToString()).Aggregate((a, b) => a + " -> " + b)}");
-
-            Console.ReadKey();
+            var summary = BenchmarkRunner.Run<DijkstraBenchmark>(DefaultConfig.Instance.With(Job.Dry));
         }
     }
 }
